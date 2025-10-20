@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessori di Lusso - Vetrina Esclusiva</title>
+    <!-- CSS Puro -->
+    <style>
+        /* Variabili di Colore */
+        :root {
+            --color-primary: #0D1117; /* Sfondo scuro (quasi nero) */
+            --color-secondary: #FFD700; /* Oro */
+            --color-accent: #1F2937; /* Grigio scuro per le carte */
+            --color-text-light: #F3F4F6; /* Testo chiaro */
+            --font-stack: 'Inter', sans-serif;
+            --header-height: 4.5rem; /* Altezza fissa per l'header migliorato */
+        }
+
+        /* Stili Generali e Correzione Ancoraggio (Fix Sticky Header) */
+        html {
+            scroll-behavior: smooth; /* Scorrimento fluido */
+            scroll-padding-top: var(--header-height); /* Compensazione per l'header fisso */
+        }
+
+        body {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            font-family: var(--font-stack);
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        /* Header e Navigazione - MIGLIORATO e SPACED OUT */
+        header {
+            background-color: var(--color-accent);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4); /* Ombra più pronunciata */
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+            /* --- MODIFICA QUI: Aumento padding laterale per staccare dai bordi --- */
+            padding-left: 2rem; 
+            padding-right: 2rem; 
+            /* -------------------------------------------------------------------- */
+        }
+
+        header h1 {
+            font-size: 2.25rem; /* 36px - Logo più grande */
+            font-weight: 700;
+            color: var(--color-secondary);
+            letter-spacing: 0.1em; /* Spaziatura maggiore per effetto lusso */
+        }
+
+        header nav a {
+            color: var(--color-text-light);
+            text-decoration: none;
+            /* --- MODIFICA QUI: Aumento margine tra i link --- */
+            margin-left: 3rem; 
+            /* ----------------------------------------------- */
+            padding: 0.5rem 0; /* Padding per target al tocco */
+            position: relative; /* Per l'effetto underline */
+            transition: color 0.3s;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        header nav a:hover {
+            color: var(--color-secondary);
+        }
+        
+        /* Effetto Sottolineatura Animata in Oro */
+        header nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-secondary);
+            transition: width 0.3s ease-out;
+        }
+
+        header nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Nascondi link di navigazione su schermi piccoli */
+        @media (max-width: 640px) {
+             header nav a { display: none; }
+             /* Adatta il padding su mobile per evitare eccessi */
+             header .nav-content {
+                padding-left: 1rem; 
+                padding-right: 1rem; 
+             }
+        }
+
+
+        /* Sezione Hero */
+        .hero {
+            text-align: center;
+            padding: 5rem 1rem;
+            border-bottom: 1px solid #1F2937;
+        }
+
+        .hero h2 {
+            font-size: 3rem; /* 48px */
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem; /* 20px */
+            color: #9CA3AF; /* Grigio più chiaro */
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .cta-explore {
+            display: inline-block;
+            margin-top: 2rem;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px; /* Rounded-full */
+            text-decoration: none;
+            box-shadow: 0 10px 15px rgba(255, 215, 0, 0.3);
+            transition: background-color 0.3s;
+        }
+
+        .hero .cta-explore:hover {
+            background-color: #DAA520; /* Oro leggermente più scuro */
+        }
+
+        /* Sezione Prodotti - Griglia */
+        .products-section {
+            padding: 4rem 0;
+        }
+
+        .products-section h2 {
+            font-size: 2.25rem; /* 36px */
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--color-secondary);
+        }
+
+        .product-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(1, minmax(0, 1fr)); /* Default: 1 colonna */
+        }
+
+        /* Responsività Griglia Prodotti */
+        @media (min-width: 640px) { /* Tablet/Small desktop */
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) { /* Desktop */
+            .product-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        /* Stili Card Prodotto */
+        .product-card {
+            background-color: var(--color-accent);
+            border-radius: 0.75rem; /* Rounded-xl */
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(255, 215, 0, 0.1), 0 4px 6px -2px rgba(255, 215, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(255, 215, 0, 0.2), 0 10px 10px -5px rgba(255, 215, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #374151; /* Grigio scuro/bordo */
+        }
+
+        .product-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-light);
+        }
+
+        .product-card .brand {
+            color: var(--color-secondary);
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-card .description {
+            color: #9CA3AF;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-info-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #374151;
+        }
+
+        .product-info-footer .price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--color-secondary);
+        }
+
+        .product-info-footer .cta-info {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-primary);
+            background-color: var(--color-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .product-info-footer .cta-info:hover {
+            background-color: #DAA520;
+        }
+
+        /* Sezione Call to Action (Contatto) */
+        .cta-section {
+            background-color: var(--color-accent);
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid #1F2937;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section .subtitle {
+            font-size: 1.25rem;
+            color: var(--color-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-section .contact-text {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section .cta-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            font-weight: 800;
+            padding: 1rem 2.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+            font-size: 1.125rem;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .cta-section .cta-button:hover {
+            background-color: #DAA520;
+            transform: scale(1.02);
+        }
+
+        .cta-section .disclaimer {
+            font-size: 0.875rem;
+            color: #6B7280;
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-primary);
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid #111827;
+        }
+
+        footer p {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+    </style>
+</head>
+
+<body class="bg-primary text-text-light font-sans min-h-screen">
+
+    <!-- Sezione Header/Navigazione -->
+    <header>
+        <div class="container nav-content">
+            <h1>Luxury Vault</h1>
+            <nav>
+                <a href="#prodotti">Prodotti</a>
+                <a href="#contatti">Contatti</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sezione Hero/Introduzione -->
+    <section class="hero">
+        <div class="container">
+            <h2>Accessori di Marca Esclusivi</h2>
+            <p>
+                Scopri una selezione curata di portafogli, cinture e altri accessori dei marchi più prestigiosi: Louis Vuitton, Gucci, Prada e molti altri.
+            </p>
+            <a href="#prodotti" class="cta-explore">
+                Esplora la Collezione
+            </a>
+        </div>
+    </section>
+
+    <!-- Sezione Prodotti -->
+    <section id="prodotti" class="products-section">
+        <div class="container">
+            <h2>La Nostra Vetrina</h2>
+
+            <!-- Griglia dei Prodotti (Gestita da CSS e JavaScript) -->
+            <div id="product-grid" class="product-grid">
+                <!-- I prodotti verranno iniettati qui tramite JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione Call to Action (Contatto) -->
+    <section id="contatti" class="cta-section">
+        <div class="container">
+            <h2>Interessato all'acquisto?</h2>
+            <p class="subtitle">
+                Questi articoli sono disponibili solo su contatto privato.
+            </p>
+            <!-- CTA principale per il contatto -->
+            <div class="contact-area">
+                <p class="contact-text">Contattami direttamente su Instagram per disponibilità, foto dettagliate e prezzi esclusivi.</p>
+                <!-- L'icona è stata inserita come SVG inline per mantenere la soluzione "pure HTML/CSS/JS" -->
+                <a href="https://www.instagram.com/iltuoprofilo/" target="_blank" class="cta-button">
+                    <!-- Icona Instagram (Inline SVG) -->
+                    <svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2.7l-.02.04c-.3.8-.5 1.7-.5 2.7v8.4c0 2.4 1.9 4.3 4.3 4.3h8.4c1 0 1.9-.2 2.7-.5v-.02c.8-.3 1.5-.7 2.1-1.4.7-.6 1.1-1.3 1.4-2.1l.02-.04V7.8c0-2.4-1.9-4.3-4.3-4.3H7.8c-.8 0-1.7.2-2.7.5zm7.4 3.7a4.2 4.2 0 100 8.4 4.2 4.2 0 000-8.4zm0 6.7a2.5 2.5 0 110-5 2.5 2.5 0 010 5zm5-6.7a1 1 0 100-2 1 1 0 000 2z"/>
+                    </svg>
+                    Contattami su Instagram
+                </a>
+                <p class="disclaimer">Sostituisci "iltuoprofilo" con il tuo nome utente di Instagram nel codice.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary">
+        <p>&copy; 2025 Luxury Vault | Vetrina di Accessori. Nessun Checkout diretto.</p>
+    </footer>
+
+    <!-- JavaScript per la logica dei prodotti -->
+    <script>
+        // Array di oggetti che rappresentano i prodotti
+        const products = [
+            {
+                name: "Borsa a Tracolla",
+                brand: "Louis Vuitton",
+                description: "Modello classico 'Monogram' in tela e pelle. Perfetto per un look iconico.",
+                price: "Prezzo su Richiesta",
+                imageUrl: "https://placehold.co/400x400/1F2937/F3F4F6?text=LV+Bag",
+            },
+            {
+                name: "Cintura Reversibile",
+                brand: "Gucci",
+                description: "Cintura in pelle nera con fibbia doppia G in metallo dorato. Taglie disponibili S/M/L.",
+                price: "Prezzo su Richiesta",
+                imageUrl: "https://placehold.co/400x400/1F2937/F3F4F6?text=Gucci+Belt",
+            },
+            {
+                name: "Portafoglio Saffiano",
+                brand: "Prada",
+                description: "Portafoglio compatto in pelle Saffiano. Elegante e resistente, con scomparti per carte e banconote.",
+                price: "Prezzo su Richiesta",
+                imageUrl: "https://placehold.co/400x400/1F2937/F3F4F6?text=Prada+Wallet",
+            },
+            {
+                name: "Sciarpa di Seta",
+                brand: "Burberry",
+                description: "Sciarpa leggera con l'iconico motivo tartan, ideale per ogni stagione.",
+                price: "Prezzo su Richiesta",
+                imageUrl: "https://placehold.co/400x400/1F2937/F3F4F6?text=Burberry+Scarf",
+            },
+            {
+                name: "Orologio Automatico",
+                brand: "Rolex (Mock)",
+                description: "Modello 'Submariner' (Replica di alta qualità). Movimento automatico e cassa in acciaio inossidabile.",
+                price: "Prezzo su Richiesta",
+                imageUrl: "https://placehold.co/400x400/1F2937/F3F4F6?text=Watch+Placeholder",
+            },
+            {
+                name: "Bracciale in Cuoio",
+                brand: "Hermès (Mock)",
+                description: "Bracciale 'Collier de Chien' con finiture in palladio. Un pezzo audace ed elegante.",
+                price: "Prezzo su Richiesta",
+                imageUrl: "https://placehold.co/400x400/1F2937/F3F4F6?text=Bracelet+Placeholder",
+            }
+        ];
+
+        // Funzione per generare il markup HTML per un singolo prodotto
+        function createProductCard(product) {
+            return `
+                <div class="product-card">
+                    <!-- Immagine Prodotto (Placeholder) -->
+                    <img src="${product.imageUrl}"
+                         onerror="this.onerror=null; this.src='https://placehold.co/400x400/1F2937/F3F4F6?text=Immagine+non+disponibile'"
+                         alt="${product.name} ${product.brand}">
+
+                    <!-- Dettagli Prodotto -->
+                    <h3>${product.name}</h3>
+                    <p class="brand">${product.brand}</p>
+                    <p class="description">${product.description}</p>
+
+                    <!-- Prezzo e CTA di Contatto -->
+                    <div class="product-info-footer">
+                        <span class="price">${product.price}</span>
+                        <a href="#contatti" class="cta-info">
+                            Info & Acquisto
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Funzione per visualizzare tutti i prodotti
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            if (grid) {
+                // Mappa l'array dei prodotti e unisce i risultati in una singola stringa HTML
+                grid.innerHTML = products.map(createProductCard).join('');
+            }
+        }
+
+        // Avvia il rendering dei prodotti quando la pagina è caricata
+        document.addEventListener('DOMContentLoaded', renderProducts);
+    </script>
+</body>
+</html>
